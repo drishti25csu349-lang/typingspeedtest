@@ -101,6 +101,17 @@ int main() {
     getchar();
     system("cls");
 
+    // 🔽 COUNTDOWN ADDED HERE 🔽
+    printf("Get Ready!\n");
+    for (int i = 3; i >= 1; i--) {
+        printf("%d...\n", i);
+        Sleep(1000);
+    }
+    printf("Go!\n");
+    Sleep(500);
+    system("cls");
+    // 🔼 COUNTDOWN END 🔼
+
     printf("===== Typing Speed Test =====\n");
     printf("You have %d seconds. Start typing below:\n\n%s\n\n", timerSeconds, sample);
     printf("------------------------------------------\n");
@@ -113,17 +124,16 @@ int main() {
     while (difftime(time(NULL), start) < timerSeconds) {
         int timeLeft = timerSeconds - (int)difftime(time(NULL), start);
 
-        // Move cursor to top to show countdown (without erasing typed text)
-        printf("\033[s");               // Save cursor position
-        printf("\033[H");               // Move to top
+        printf("\033[s");
+        printf("\033[H");
         printf("Time left: %2d seconds\n", timeLeft);
-        printf("\033[u");               // Restore cursor
+        printf("\033[u");
         fflush(stdout);
 
         if (kbhit()) {
             char ch = getch();
             if (ch == 13) break;
-            if (ch == 8 && pos > 0) { // Backspace
+            if (ch == 8 && pos > 0) {
                 pos--;
                 printf("\b \b");
             } else if (isprint(ch)) {
@@ -135,8 +145,7 @@ int main() {
     }
 
     typed[pos] = '\0';
-    time_t end = time(NULL);
-    double timeTaken = difftime(end, start);
+    double timeTaken = difftime(time(NULL), start);
 
     // Results
     int wordsTyped = countWords(typed);
@@ -155,3 +164,4 @@ int main() {
 
     return 0;
 }
+
